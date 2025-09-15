@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .choices button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <a href="../index.html">⬅ Back to Menu</a>
+
+    <div class="choices">
+        <button data-choice="rock">🪨 Rock</button>
+        <button data-choice="paper">📄 Paper</button>
+        <button data-choice="scissors">✂️ Scissors</button>
+    </div>
+
+    <p id="result"></p>
+
+    <script src="rps.js"></script>
+</body>
+
+</html>
