@@ -1,63 +1,150 @@
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
-const box = 20; // size of each snake segment
+const board = document.getElementById("board");
+const scoreEl = document.getElementById("score");
+const highScoreEl = document.getElementById("highScore");
+const modal = document.getElementById("gameOverModal");
+const modalScore = document.getElementById("modalScore");
+const playAgainBtn = document.getElementById("playAgain");
+const startBtn = document.getElementById("startBtn");
 
-let snake = [{ x: 8 * box, y: 8 * box }];
-let dir = null;
-let food = { x: Math.floor(Math.random() * 20) * box, y: Math.floor(Math.random() * 20) * box };
+const rows = 20;
+const cols = 20;
+
+let snake = [];
+let food = {};
+let direction = { row: 0, col: 1 };
+let interval = null;
+let isPaused = false;
 let score = 0;
+let highScore = localStorage.getItem("snakeHighScore") || 0;
 
-document.addEventListener("keydown", e => {
-    if (e.key === "ArrowUp" && dir !== "DOWN") dir = "UP";
-    else if (e.key === "ArrowDown" && dir !== "UP") dir = "DOWN";
-    else if (e.key === "ArrowLeft" && dir !== "RIGHT") dir = "LEFT";
-    else if (e.key === "ArrowRight" && dir !== "LEFT") dir = "RIGHT";
-});
-
-function draw() {
-    ctx.fillStyle = "#eee";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // draw snake
-    snake.forEach((s, i) => {
-        ctx.fillStyle = i === 0 ? "green" : "lime";
-        ctx.fillRect(s.x, s.y, box, box);
-        ctx.strokeStyle = "#333";
-        ctx.strokeRect(s.x, s.y, box, box);
-    });
-
-    // draw food
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x, food.y, box, box);
-
-    // move snake
-    let head = { ...snake[0] };
-    if (dir === "UP") head.y -= box;
-    else if (dir === "DOWN") head.y += box;
-    else if (dir === "LEFT") head.x -= box;
-    else if (dir === "RIGHT") head.x += box;
-
-    // check collision with walls
-    if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || snake.some(s => s.x === head.x && s.y === head.y)) {
-        alert("Game Over! Score: " + score);
-        snake = [{ x: 8 * box, y: 8 * box }];
-        dir = null;
-        score = 0;
-        food = { x: Math.floor(Math.random() * 20) * box, y: Math.floor(Math.random() * 20) * box };
-        document.getElementById("score").textContent = "Score: 0";
-        return;
-    }
-
-    snake.unshift(head);
-
-    // eat food
-    if (head.x === food.x && head.y === food.y) {
-        score++;
-        document.getElementById("score").textContent = "Score: " + score;
-        food = { x: Math.floor(Math.random() * 20) * box, y: Math.floor(Math.random() * 20) * box };
-    } else {
-        snake.pop();
+// Create board
+function createBoard() {
+    board.innerHTML = "";
+    for (let i = 0; i < rows * cols; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        board.appendChild(cell);
     }
 }
 
-setInterval(draw, 100);
+// Get index
+function getIndex(row, col) {
+    return row * cols + col;
+}
+
+// Place food
+function placeFood() {
+    let row, col;
+    do {
+        row = Math.floor(Math.random() * rows);
+        col = Math.floor(Math.random() * cols);
+    } while (snake.some(s => s.row === row && s.col === col));
+    food = { row, col };
+}
+
+// Render board
+function renderBoard() {
+    board.querySelectorAll(".cell").forEach(cell => cell.className = "cell");
+    // Food
+    board.children[getIndex(food.row, food.col)].classList.add("food");
+    // Snake
+    snake.forEach(s => {
+        board.children[getIndex(s.row, s.col)].classList.add("snake");
+    });
+}
+
+// Start game
+function startGame() {
+    snake = [{ row: 10, col: 10 }];
+    direction = { row: 0, col: 1 };
+    score = 0;
+    isPaused = false;
+    updateScore();
+    placeFood();
+    modal.classList.remove("show");
+    startBtn.style.display = "none";
+
+    renderBoard();
+    clearInterval(interval);
+    interval = setInterval(gameLoop, 150);
+}
+
+// Game loop
+function gameLoop() {
+    const head = { row: snake[0].row + direction.row, col: snake[0].col + direction.col };
+
+    // Wall collision
+    if (head.row < 0 || head.row >= rows || head.col < 0 || head.col >= cols) return gameOver();
+    // Self collision
+    if (snake.some(s => s.row === head.row && s.col === head.col)) return gameOver();
+
+    snake.unshift(head);
+
+    // Eat food
+    if (head.row === food.row && head.col === food.col) {
+        score++;
+        updateScore();
+        placeFood();
+    } else {
+        snake.pop();
+    }
+
+    renderBoard();
+}
+
+// Game over
+function gameOver() {
+    clearInterval(interval);
+    interval = null;
+    modalScore.textContent = score;
+    modal.classList.add("show");
+    startBtn.style.display = "block";
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem("snakeHighScore", highScore);
+    }
+    updateScore();
+}
+
+// Update score
+function updateScore() {
+    scoreEl.textContent = score;
+    highScoreEl.textContent = highScore;
+}
+
+// Controls
+document.addEventListener("keydown", e => {
+    const key = e.key.toLowerCase();
+
+    // Prevent scroll
+    if (["arrowup", "arrowdown", "arrowleft", "arrowright", " "].includes(key)) e.preventDefault();
+
+    // Movement
+    if ((key === "arrowup" || key === "w") && direction.row !== 1) direction = { row: -1, col: 0 };
+    if ((key === "arrowdown" || key === "s") && direction.row !== -1) direction = { row: 1, col: 0 };
+    if ((key === "arrowleft" || key === "a") && direction.col !== 1) direction = { row: 0, col: -1 };
+    if ((key === "arrowright" || key === "d") && direction.col !== -1) direction = { row: 0, col: 1 };
+
+    // Pause/resume
+    if (key === " ") {
+        if (isPaused) {
+            interval = setInterval(gameLoop, 150);
+            isPaused = false;
+        } else {
+            clearInterval(interval);
+            interval = null;
+            isPaused = true;
+        }
+    }
+
+    // Enter to start/restart
+    if (key === "enter") startGame();
+});
+
+// Buttons
+startBtn.addEventListener("click", startGame);
+playAgainBtn.addEventListener("click", startGame);
+
+// Initialize
+createBoard();
+updateScore();

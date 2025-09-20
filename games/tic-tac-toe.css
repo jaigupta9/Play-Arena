@@ -1,0 +1,179 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #1e1e2e;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+header,
+footer {
+    background: #282a36;
+    padding: 15px;
+    color: #f8f8f2;
+}
+
+header h1 {
+    margin: 5px;
+}
+
+.back-link {
+    color: #50fa7b;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+/* Board styling */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    gap: 8px;
+    justify-content: center;
+    margin: 20px auto;
+    background: #6272a4;
+    /* changed to a lighter background so grid is visible */
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* Cells */
+.cell {
+    width: 120px;
+    height: 120px;
+    background: #f8f8f2;
+    border-radius: 12px;
+    font-size: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.cell:hover {
+    transform: scale(1.05);
+}
+
+.cell.taken {
+    cursor: not-allowed;
+}
+
+.cell.X {
+    color: #ff5555;
+    /* Red for X */
+    font-weight: bold;
+    animation: pop 0.3s ease;
+}
+
+.cell.O {
+    color: #50fa7b;
+    /* Green for O */
+    font-weight: bold;
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.winner {
+    background: #ffb86c !important;
+    animation: glow 0.5s alternate infinite;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px #ffb86c;
+    }
+
+    to {
+        box-shadow: 0 0 25px #ffb86c;
+    }
+}
+
+#status {
+    font-size: 1.5em;
+    margin: 15px 0;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #6272a4;
+    color: white;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #7082b6;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+/* existing styles stay the same ... */
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 46, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #282a36;
+    padding: 30px 50px;
+    border-radius: 15px;
+    text-align: center;
+    color: #f8f8f2;
+    font-size: 1.5em;
+    box-shadow: 0 0 20px #50fa7b;
+}
+
+.modal button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #50fa7b;
+    color: #282a36;
+    transition: background 0.3s;
+}
+
+.modal button:hover {
+    background: #3ed67e;
+}

@@ -4,28 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Snake Game</title>
-    <link rel="stylesheet" href="../style.css">
-    <style>
-        canvas {
-            background: #eee;
-            display: block;
-            margin: 20px auto;
-            border: 2px solid #333;
-        }
-
-        #score {
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="snake.css">
 </head>
 
 <body>
-    <h1>Snake Game</h1>
-    <a href="../index.html">⬅ Back to Menu</a>
-    <canvas id="game" width="400" height="400"></canvas>
-    <p id="score">Score: 0</p>
+    <header>
+        <h1>🎮 Snake Game</h1>
+        <a href="../index.html" class="back-link">⬅ Back to Menu</a>
+    </header>
+
+    <main>
+        <div class="scoreboard">
+            <p>Score: <span id="score">0</span></p>
+            <p>High Score: <span id="highScore">0</span></p>
+        </div>
+
+        <div class="board" id="board"></div>
+
+        <button id="startBtn">▶ Play</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 My Games Collection</p>
+    </footer>
+
+    <div class="modal" id="gameOverModal">
+        <div class="modal-content">
+            <p>Game Over!</p>
+            <p>Score: <span id="modalScore">0</span></p>
+            <button id="playAgain">Play Again</button>
+            <p style="font-size:0.8em; margin-top:10px;">Use Arrow keys or WASD to move</p>
+            <p style="font-size:0.8em;">Press Enter to start/restart at any time</p>
+        </div>
+    </div>
 
     <script src="snake.js"></script>
 </body>

@@ -5,34 +5,38 @@
     <meta charset="UTF-8">
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="../style.css">
-    <style>
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            gap: 5px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .cell {
-            width: 100px;
-            height: 100px;
-            background: white;
-            border: 2px solid #333;
-            font-size: 2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="tic-tac-toe.css">
 </head>
 
 <body>
-    <h1>Tic Tac Toe</h1>
-    <a href="../index.html">⬅ Back to Menu</a>
-    <div class="board" id="board"></div>
-    <p id="status"></p>
+    <header>
+        <h1>🎮 Tic Tac Toe</h1>
+        <a href="../index.html" class="back-link">⬅ Back to Menu</a>
+    </header>
+
+    <main>
+        <div class="scoreboard">
+            <p>Player X: <span id="scoreX">0</span></p>
+            <p>Player O: <span id="scoreO">0</span></p>
+        </div>
+
+        <p id="status">Turn: X</p>
+        <div class="board" id="board"></div>
+        <button id="resetBtn">🔄 Restart Game</button>
+
+        <!-- Modal for win/draw -->
+        <div class="modal" id="gameModal">
+            <div class="modal-content">
+                <p id="modalText"></p>
+                <button id="modalBtn">Play Again</button>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2025 My Games Collection</p>
+    </footer>
 
     <script src="tic-tac-toe.js"></script>
 </body>

@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #1e1e2e;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+header,
+footer {
+    background: #282a36;
+    padding: 10px;
+    color: #f8f8f2;
+}
+
+header h1 {
+    margin: 5px;
+    font-size: 1.5em;
+}
+
+.back-link {
+    color: #50fa7b;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+/* Board styling */
+.board {
+    display: grid;
+    grid-template-columns: repeat(20, 20px);
+    grid-template-rows: repeat(20, 20px);
+    gap: 2px;
+    margin: 20px auto;
+    background: #44475a;
+    padding: 5px;
+    border-radius: 12px;
+    width: fit-content;
+}
+
+/* Cells */
+.cell {
+    width: 20px;
+    height: 20px;
+    background: #6272a4;
+    border-radius: 3px;
+}
+
+.snake {
+    background: #50fa7b;
+}
+
+.food {
+    background: #ff5555;
+}
+
+/* Buttons */
+button {
+    display: block;
+    margin: 20px auto 0 auto;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #6272a4;
+    color: white;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #7082b6;
+}
+
+/* Scoreboard */
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 46, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #282a36;
+    padding: 30px 50px;
+    border-radius: 15px;
+    text-align: center;
+    color: #f8f8f2;
+    font-size: 1.2em;
+    box-shadow: 0 0 20px #50fa7b;
+}
+
+.modal button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #50fa7b;
+    color: #282a36;
+    transition: background 0.3s;
+}
+
+.modal button:hover {
+    background: #3ed67e;
+}
