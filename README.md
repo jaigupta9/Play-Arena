@@ -1,8 +1,6 @@
 # Play Arena 🎮
 
-**Play Arena** is a fun collection of classic mini-games built with **HTML, CSS, and JavaScript**. It’s designed for quick entertainment and to showcase basic front-end web development skills.  
-
-You can play directly online without downloading any code!
+**Play Arena** is a fun collection of classic mini-games built with **HTML, CSS, and JavaScript**. Play directly in your browser—no installation required! Perfect for quick entertainment or to see basic front-end web development in action.
 
 ---
 
@@ -10,9 +8,11 @@ You can play directly online without downloading any code!
 
 | Game | Demo |
 |------|------|
-| **Tic Tac Toe** | [![Tic Tac Toe](./images/tic-tac-toe.png)](https://jaigupta9.github.io/Play-Arena/games/tic-tac-toe.html) |
-| **Rock Paper Scissors** | [![RPS](./images/rps.png)](https://jaigupta9.github.io/Play-Arena/games/rps.html) |
-| **Snake** | [![Snake](./images/snake.png)](https://jaigupta9.github.io/Play-Arena/games/snake.html) |
+| **Tic Tac Toe** | [![Tic Tac Toe](./images/tic-tac-toe.png)](https://play-arena-mu.vercel.app/games/tic-tac-toe.html) |
+| **Rock Paper Scissors** | [![RPS](./images/rps.png)](https://play-arena-mu.vercel.app/games/rps.html) |
+| **Snake** | [![Snake](./images/snake.png)](https://play-arena-mu.vercel.app/games/snake.html) |
+
+> Click on the images above to play the game directly.
 
 ---
 
@@ -21,9 +21,7 @@ You can play directly online without downloading any code!
 You can play the games online on both platforms:  
 
 - **GitHub Pages:** [https://jaigupta9.github.io/Play-Arena/](https://jaigupta9.github.io/Play-Arena/)  
-- **Vercel:** [https://play-arena.vercel.app/](https://play-arena.vercel.app/)
-
-> Click on the game images above to go directly to each playable game.
+- **Vercel:** [https://play-arena-mu.vercel.app/](https://play-arena-mu.vercel.app/)
 
 ---
 
