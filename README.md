@@ -9,7 +9,7 @@
 | Game | Demo |
 |------|------|
 | **Tic Tac Toe** | [![Tic Tac Toe](./images/tic-tac-toe.png)](https://play-arena-mu.vercel.app/games/tic-tac-toe.html) |
-| **Rock Paper Scissors** | [![RPS](./images/rps.png)](https://play-arena-mu.vercel.app/games/rps.html) |
+| **Rock Paper Scissors** | [![Rock Paper Scissors](./images/rock-paper-scissors.png)](https://play-arena-mu.vercel.app/games/rock-paper-scissors.html) |
 | **Snake** | [![Snake](./images/snake.png)](https://play-arena-mu.vercel.app/games/snake.html) |
 
 > Click on the images above to play the game directly.
@@ -32,11 +32,11 @@ Play-Arena/
 │── style.css
 │── games/
 │ ├── tic-tac-toe.html
-│ ├── rps.html
+│ ├── rock-paper-scissors.html
 │ ├── snake.html
 │── images/
 │ ├── tic-tac-toe.png
-│ ├── rps.png
+│ ├── rock-paper-scissors.png
 │ ├── snake.png
 
 
