@@ -11,90 +11,123 @@
 <body>
     <!-- Navbar -->
     <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
+        <nav class="navbar">
+            <div class="logo">🎮 Play Arena</div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About</a>
+                <a href="#">Leaderboard</a>
+                <a href="#">Contact</a>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">🌙</button>
+            </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>🎮 Play Arena</h1>
+        <h1>Welcome to Play Arena</h1>
         <p>Mini Games, Maximum Fun — all in one place!</p>
+        <a href="#games" class="btn">Start Playing</a>
+    </section>
+
+    <!-- Featured Game -->
+    <section class="featured">
+        <h2>🎯 Featured Game of the Week</h2>
+        <div class="featured-card">
+            <img src="images/tic-tac-toe.png" alt="Featured Game">
+            <div class="featured-info">
+                <h3>Tic Tac Toe</h3>
+                <p>Test your logic and strategy in this timeless battle of Xs and Os.</p>
+                <a href="games/tic-tac-toe.html" class="btn play-btn">Play Now</a>
+            </div>
+        </div>
     </section>
 
     <!-- Games Section -->
-    <section class="games">
-        <h2>Available Games</h2>
+    <section class="games" id="games">
+        <h2>All Games</h2>
+
+        <!-- Search & Filter -->
+        <div class="search-filter">
+            <input type="text" placeholder="Search games..." id="searchBox">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="puzzle">Puzzle</option>
+                <option value="arcade">Arcade</option>
+                <option value="quiz">Quiz</option>
+                <option value="logic">Logic</option>
+            </select>
+        </div>
+
         <div class="game-menu">
-            <div class="game-card">
-                <a href="games/tic-tac-toe.html">
-                    <img src="images/tic-tac-toe.png" alt="Tic Tac Toe">
-                    <h3>Tic Tac Toe</h3>
-                </a>
+            <div class="game-card" data-category="logic">
+                <img src="images/tic-tac-toe.png" alt="Tic Tac Toe">
+                <h3>Tic Tac Toe</h3>
+                <p>Classic 3x3 game of Xs and Os.</p>
+                <a href="games/tic-tac-toe.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/rock-paper-scissors.html">
-                    <img src="images/rock-paper-scissors.png" alt="Rock Paper Scissors">
-                    <h3>Rock · Paper · Scissors</h3>
-                </a>
+            <div class="game-card" data-category="arcade">
+                <img src="images/rock-paper-scissors.png" alt="Rock Paper Scissors">
+                <h3>Rock · Paper · Scissors</h3>
+                <p>Quick reflex fun! Outsmart your opponent.</p>
+                <a href="games/rock-paper-scissors.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/snake.html">
-                    <img src="images/snake.png" alt="Snake">
-                    <h3>Snake</h3>
-                </a>
+            <div class="game-card" data-category="arcade">
+                <img src="images/snake.png" alt="Snake">
+                <h3>Snake</h3>
+                <p>Eat and grow while avoiding your own tail!</p>
+                <a href="games/snake.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/tetris.html">
-                    <img src="images/tetris.png" alt="Tetris">
-                    <h3>Tetris</h3>
-                </a>
+            <div class="game-card" data-category="arcade">
+                <img src="images/tetris.png" alt="Tetris">
+                <h3>Tetris</h3>
+                <p>Stack falling blocks and clear lines.</p>
+                <a href="games/tetris.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/memory-match.html">
-                    <img src="images/memory-match.png" alt="Memory Match">
-                    <h3>Memory Match</h3>
-                </a>
+            <div class="game-card" data-category="puzzle">
+                <img src="images/memory-match.png" alt="Memory Match">
+                <h3>Memory Match</h3>
+                <p>Flip and find matching cards to win!</p>
+                <a href="games/memory-match.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/quiz-master.html">
-                    <img src="images/quiz-master.png" alt="Quiz Master">
-                    <h3>Quiz Master</h3>
-                </a>
+            <div class="game-card" data-category="quiz">
+                <img src="images/quiz-master.png" alt="Quiz Master">
+                <h3>Quiz Master</h3>
+                <p>Challenge your brain with trivia questions.</p>
+                <a href="games/quiz-master.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/puzzle-mania.html">
-                    <img src="images/puzzle-mania.png" alt="Puzzle Mania">
-                    <h3>Puzzle Mania</h3>
-                </a>
+            <div class="game-card" data-category="puzzle">
+                <img src="images/puzzle-mania.png" alt="Puzzle Mania">
+                <h3>Puzzle Mania</h3>
+                <p>Solve visual puzzles and boost your IQ!</p>
+                <a href="games/puzzle-mania.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/word-hunt.html">
-                    <img src="images/word-hunt.png" alt="Word Hunt">
-                    <h3>Word Hunt</h3>
-                </a>
+            <div class="game-card" data-category="puzzle">
+                <img src="images/word-hunt.png" alt="Word Hunt">
+                <h3>Word Hunt</h3>
+                <p>Search and find words before time runs out!</p>
+                <a href="games/word-hunt.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/number-rush.html">
-                    <img src="images/number-rush.png" alt="Number Rush">
-                    <h3>Number Rush</h3>
-                </a>
+            <div class="game-card" data-category="logic">
+                <img src="images/number-rush.png" alt="Number Rush">
+                <h3>Number Rush</h3>
+                <p>Tap numbers fast in increasing order!</p>
+                <a href="games/number-rush.html" class="btn play-btn">Play Now</a>
             </div>
 
-            <div class="game-card">
-                <a href="games/sliding-puzzle.html">
-                    <img src="images/sliding-puzzle.png" alt="Sliding Puzzle">
-                    <h3>Sliding Puzzle</h3>
-                </a>
+            <div class="game-card" data-category="puzzle">
+                <img src="images/sliding-puzzle.png" alt="Sliding Puzzle">
+                <h3>Sliding Puzzle</h3>
+                <p>Arrange tiles to restore the image.</p>
+                <a href="games/sliding-puzzle.html" class="btn play-btn">Play Now</a>
             </div>
         </div>
     </section>
@@ -103,6 +136,9 @@
     <footer>
         <p>© 2025 Play Arena | Made by Jai</p>
     </footer>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
 </body>
 
 </html>
