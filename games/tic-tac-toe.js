@@ -1,3 +1,50 @@
+// ----------------------
+// Navbar + Dark Mode (page-agnostic)
+// ----------------------
+(function initNavbar() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    // Inject hamburger for mobile
+    const hamburger = document.createElement('button');
+    hamburger.classList.add('hamburger-btn');
+    hamburger.setAttribute('aria-label', 'Toggle menu');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.innerHTML = '☰';
+    navbar.prepend(hamburger);
+
+    hamburger.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+        const expanded = navbar.classList.contains('active');
+        hamburger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    });
+
+    // Dark mode toggle mirrors home page behavior
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Initialize from localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        if (toggleBtn) toggleBtn.textContent = '☀️';
+    } else {
+        if (toggleBtn) toggleBtn.textContent = '🌙';
+    }
+
+    // Toggle handler
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const enabled = body.classList.contains('dark-mode');
+            toggleBtn.textContent = enabled ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', enabled ? 'enabled' : 'disabled');
+        });
+    }
+})();
+
+// ----------------------
+// Tic Tac Toe Game Logic
+// ----------------------
 const board = document.getElementById("board");
 const statusText = document.getElementById("status");
 const resetBtn = document.getElementById("resetBtn");
@@ -17,23 +64,38 @@ function createBoard() {
     for (let i = 0; i < 9; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
+        cell.setAttribute("role", "gridcell");
+        cell.setAttribute("aria-label", `Cell ${i + 1}`);
+        cell.setAttribute("tabindex", "0");
         cell.dataset.index = i;
+
         if (gameState[i] !== "") {
             cell.textContent = gameState[i];
             cell.classList.add(gameState[i], "taken");
         }
-        cell.addEventListener("click", handleClick);
+
+        // Click once per empty cell
+        cell.addEventListener("click", handleClick, { once: true });
+
+        // Keyboard support
+        cell.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                cell.click();
+            }
+        });
+
         board.appendChild(cell);
     }
 }
 
 function handleClick(e) {
-    const index = e.target.dataset.index;
+    const index = e.currentTarget.dataset.index;
     if (gameState[index] !== "") return;
 
     gameState[index] = currentPlayer;
-    e.target.textContent = currentPlayer;
-    e.target.classList.add(currentPlayer, "taken");
+    e.currentTarget.textContent = currentPlayer;
+    e.currentTarget.classList.add(currentPlayer, "taken");
 
     const winningPattern = checkWin();
     if (winningPattern) {
@@ -58,9 +120,7 @@ function checkWin() {
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6]
     ];
-    return winPatterns.find(pattern =>
-        pattern.every(i => gameState[i] === currentPlayer)
-    );
+    return winPatterns.find(pattern => pattern.every(i => gameState[i] === currentPlayer));
 }
 
 function highlightWin(pattern) {
@@ -68,7 +128,10 @@ function highlightWin(pattern) {
 }
 
 function disableBoard() {
-    Array.from(board.children).forEach(cell => cell.removeEventListener("click", handleClick));
+    // Strip all listeners to freeze the board after win
+    Array.from(board.children).forEach(cell => {
+        cell.replaceWith(cell.cloneNode(true));
+    });
 }
 
 function updateScores() {
