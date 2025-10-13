@@ -2,39 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="rock-paper-scissors.css">
+    <meta charset="UTF-8" />
+    <title>Play Arena — Rock · Paper · Scissors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Site-wide styles first -->
+    <link rel="stylesheet" href="../styles.css" />
+    <!-- Page-specific styles second -->
+    <link rel="stylesheet" href="rock-paper-scissors.css" />
 </head>
 
 <body>
+    <!-- Shared Navbar -->
     <header>
-        <h1>🪨✋✌ Rock Paper Scissors</h1>
-        <a href="../index.html" class="back-link">⬅ Back to Menu</a>
+        <nav class="navbar">
+            <a href="../index.html" class="logo" aria-label="Play Arena Home">🎮 Play Arena</a>
+            <div class="nav-links">
+                <a href="../index.html" class="active">Home</a>
+                <a href="../about.html">About</a>
+                <a href="#">Leaderboard</a>
+                <a href="#">Contact</a>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </nav>
     </header>
 
-    <main>
-        <div class="scoreboard">
-            <p>Player: <span id="scorePlayer">0</span></p>
-            <p>Computer: <span id="scoreComputer">0</span></p>
-        </div>
+    <!-- Page header matched to site style -->
+    <section class="hero" style="padding: 40px 20px;">
+        <h1>🪨📄✂️ Rock · Paper · Scissors</h1>
+        <p>Quick reflex fun with scores, animations, and dark mode.</p>
+    </section>
 
-        <div class="choices">
-            <button class="choice-btn" data-choice="rock">✊</button>
-            <button class="choice-btn" data-choice="paper">🖐</button>
-            <button class="choice-btn" data-choice="scissors">✌</button>
-        </div>
+    <main class="container" style="padding: 0 16px 40px;">
+        <!-- Game card styled like Tic Tac Toe -->
+        <section class="rps-card" aria-label="Rock Paper Scissors game area">
+            <div class="scoreboard" aria-label="Scoreboard">
+                <p>Player: <span id="scorePlayer">0</span></p>
+                <p>Computer: <span id="scoreComputer">0</span></p>
+            </div>
 
-        <p id="result">Make your move!</p>
-        <button id="resetBtn">🔄 Restart Game</button>
+            <p id="result" class="status" aria-live="polite">Make your move!</p>
+
+            <!-- Choices -->
+            <div class="choices" role="listbox" aria-label="Choices">
+                <button class="choice-btn" data-choice="rock" aria-label="Rock" title="Rock">✊</button>
+                <button class="choice-btn" data-choice="paper" aria-label="Paper" title="Paper">✋</button>
+                <button class="choice-btn" data-choice="scissors" aria-label="Scissors" title="Scissors">✌️</button>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions" aria-label="Game actions">
+                <a href="../index.html" class="btn" aria-label="Back to home menu">⬅ Back to Menu</a>
+                <button id="resetBtn" class="btn" aria-label="Reset scores">🔄 Reset Scores</button>
+            </div>
+        </section>
     </main>
 
+    <!-- Shared Footer -->
     <footer>
-        <p>&copy; 2025 My Games Collection</p>
+        <p>© 2025 Play Arena | Made by Jai</p>
     </footer>
 
-    <script src="rock-paper-scissors.js"></script>
+    <!-- Page script (navbar helpers + game logic) -->
+    <script defer src="rock-paper-scissors.js"></script>
 </body>
 
 </html>
