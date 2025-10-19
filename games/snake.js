@@ -1,3 +1,48 @@
+// ----------------------
+// Navbar + Dark Mode (page-agnostic, mirrors other games)
+// ----------------------
+(function initNavbar() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    // Inject hamburger for mobile
+    const hamburger = document.createElement('button');
+    hamburger.classList.add('hamburger-btn');
+    hamburger.setAttribute('aria-label', 'Toggle menu');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.innerHTML = '☰';
+    navbar.prepend(hamburger);
+
+    hamburger.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+        const expanded = navbar.classList.contains('active');
+        hamburger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    });
+
+    // Dark mode toggle using localStorage
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        if (toggleBtn) toggleBtn.textContent = '☀️';
+    } else {
+        if (toggleBtn) toggleBtn.textContent = '🌙';
+    }
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const enabled = body.classList.contains('dark-mode');
+            toggleBtn.textContent = enabled ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', enabled ? 'enabled' : 'disabled');
+        });
+    }
+})();
+
+// ----------------------
+// Snake Game
+// ----------------------
 const board = document.getElementById("board");
 const scoreEl = document.getElementById("score");
 const highScoreEl = document.getElementById("highScore");
@@ -14,10 +59,11 @@ let food = {};
 let direction = { row: 0, col: 1 };
 let interval = null;
 let isPaused = false;
+let isRunning = false;
+let isGameOver = false;
 let score = 0;
-let highScore = localStorage.getItem("snakeHighScore") || 0;
+let highScore = Number(localStorage.getItem("snakeHighScore")) || 0;
 
-// Create board
 function createBoard() {
     board.innerHTML = "";
     for (let i = 0; i < rows * cols; i++) {
@@ -27,12 +73,10 @@ function createBoard() {
     }
 }
 
-// Get index
 function getIndex(row, col) {
     return row * cols + col;
 }
 
-// Place food
 function placeFood() {
     let row, col;
     do {
@@ -42,9 +86,8 @@ function placeFood() {
     food = { row, col };
 }
 
-// Render board
 function renderBoard() {
-    board.querySelectorAll(".cell").forEach(cell => cell.className = "cell");
+    board.querySelectorAll(".cell").forEach(cell => (cell.className = "cell"));
     // Food
     board.children[getIndex(food.row, food.col)].classList.add("food");
     // Snake
@@ -53,30 +96,38 @@ function renderBoard() {
     });
 }
 
-// Start game
 function startGame() {
-    snake = [{ row: 10, col: 10 }];
+    // Reset state
+    clearInterval(interval);
+    interval = null;
+    isPaused = false;
+    isRunning = true;
+    isGameOver = false;
+
+    snake = [{ row: Math.floor(rows / 2), col: Math.floor(cols / 2) }];
     direction = { row: 0, col: 1 };
     score = 0;
-    isPaused = false;
     updateScore();
     placeFood();
     modal.classList.remove("show");
     startBtn.style.display = "none";
-
     renderBoard();
-    clearInterval(interval);
+
     interval = setInterval(gameLoop, 150);
 }
 
-// Game loop
 function gameLoop() {
     const head = { row: snake[0].row + direction.row, col: snake[0].col + direction.col };
 
     // Wall collision
-    if (head.row < 0 || head.row >= rows || head.col < 0 || head.col >= cols) return gameOver();
+    if (head.row < 0 || head.row >= rows || head.col < 0 || head.col >= cols) {
+        return gameOver();
+    }
+
     // Self collision
-    if (snake.some(s => s.row === head.row && s.col === head.col)) return gameOver();
+    if (snake.some(s => s.row === head.row && s.col === head.col)) {
+        return gameOver();
+    }
 
     snake.unshift(head);
 
@@ -92,53 +143,64 @@ function gameLoop() {
     renderBoard();
 }
 
-// Game over
 function gameOver() {
     clearInterval(interval);
     interval = null;
+    isRunning = false;
+    isPaused = false;
+    isGameOver = true;
+
     modalScore.textContent = score;
     modal.classList.add("show");
     startBtn.style.display = "block";
+
     if (score > highScore) {
         highScore = score;
-        localStorage.setItem("snakeHighScore", highScore);
+        localStorage.setItem("snakeHighScore", String(highScore));
     }
     updateScore();
 }
 
-// Update score
 function updateScore() {
     scoreEl.textContent = score;
     highScoreEl.textContent = highScore;
 }
 
-// Controls
+// Keyboard controls
 document.addEventListener("keydown", e => {
     const key = e.key.toLowerCase();
 
-    // Prevent scroll
-    if (["arrowup", "arrowdown", "arrowleft", "arrowright", " "].includes(key)) e.preventDefault();
+    // Prevent scroll for arrows and space
+    if (["arrowup", "arrowdown", "arrowleft", "arrowright", " "].includes(key)) {
+        e.preventDefault();
+    }
 
-    // Movement
+    // If game over: allow quick restart with Enter/Space; ignore pause toggles
+    if (isGameOver && (key === "enter" || key === " ")) {
+        startGame();
+        return;
+    }
+
+    // Movement (no 180 turns)
     if ((key === "arrowup" || key === "w") && direction.row !== 1) direction = { row: -1, col: 0 };
     if ((key === "arrowdown" || key === "s") && direction.row !== -1) direction = { row: 1, col: 0 };
     if ((key === "arrowleft" || key === "a") && direction.col !== 1) direction = { row: 0, col: -1 };
     if ((key === "arrowright" || key === "d") && direction.col !== -1) direction = { row: 0, col: 1 };
 
-    // Pause/resume
+    // Pause/resume only while running and not game over
     if (key === " ") {
+        if (!isRunning || isGameOver) return;
         if (isPaused) {
-            interval = setInterval(gameLoop, 150);
+            if (!interval) interval = setInterval(gameLoop, 150);
             isPaused = false;
         } else {
-            clearInterval(interval);
-            interval = null;
+            if (interval) { clearInterval(interval); interval = null; }
             isPaused = true;
         }
     }
 
-    // Enter to start/restart
-    if (key === "enter") startGame();
+    // Enter to start when idle (pre-game)
+    if (key === "enter" && !isRunning && !isGameOver) startGame();
 });
 
 // Buttons
