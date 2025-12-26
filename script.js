@@ -1,3 +1,7 @@
+if (!localStorage.getItem("token")) {
+    window.location.href = "login.html";
+}
+
 // ====== Elements ======
 const searchBox = document.getElementById('searchBox');
 const categoryFilter = document.getElementById('categoryFilter');
@@ -60,3 +64,8 @@ toggleBtn.addEventListener('click', () => {
         localStorage.setItem('darkMode', 'disabled');
     }
 });
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+}
