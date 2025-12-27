@@ -8,5 +8,10 @@
     "username": "Jai",
     "email": "jai@gmail.com",
     "password": "$2b$10$U8.GIq/M40IfnY3xMKmQW.b9ipalatRtsIq7lxVq.T8IJdX9NCDMW"
+  },
+  {
+    "username": "abc",
+    "email": "abc@gmail.com",
+    "password": "$2b$10$/SJq0eTrXieZrduyBhdw0e/kWVijAumw7UX45bY1HscvWfamG/PT2"
   }
 ]

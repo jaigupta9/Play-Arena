@@ -506,3 +506,41 @@ body.dark-mode .hero p {
 body.dark-mode .featured-card:hover {
     box-shadow: 0 12px 30px rgba(0, 250, 255, 0.3);
 }
+
+/* ==============================
+   Logout Button (Navbar)
+   ============================== */
+.logout-btn {
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+/* Dark mode logout */
+body.dark-mode .logout-btn {
+    background: #ff5c5c;
+    color: #000;
+}
+
+body.dark-mode .logout-btn:hover {
+    background: #ff3b3b;
+}
+
+/* Mobile nav fix */
+@media (max-width: 760px) {
+    .nav-links .logout-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,71 +1,81 @@
+/* ==============================
+   Auth Guard
+   ============================== */
 if (!localStorage.getItem("token")) {
     window.location.href = "login.html";
 }
 
-// ====== Elements ======
-const searchBox = document.getElementById('searchBox');
-const categoryFilter = document.getElementById('categoryFilter');
-const cards = document.querySelectorAll('.game-card');
-const toggleBtn = document.getElementById('theme-toggle');
-const body = document.body;
-const heroBtn = document.querySelector('.hero .btn');
-const navbar = document.querySelector('.navbar');
-
-// ====== Mobile Hamburger ======
-const hamburger = document.createElement('button');
-hamburger.classList.add('hamburger-btn');
-hamburger.innerHTML = '☰';
-navbar.prepend(hamburger);
-
-hamburger.addEventListener('click', () => {
-    navbar.classList.toggle('active');
-});
-
-// ====== Search & Filter ======
-function filterGames() {
-    const search = searchBox.value.toLowerCase();
-    const category = categoryFilter.value;
-
-    cards.forEach(card => {
-        const matchesSearch = card.querySelector('h3').textContent.toLowerCase().includes(search);
-        const matchesCategory = category === 'all' || card.dataset.category === category;
-        if (matchesSearch && matchesCategory) {
-            card.classList.remove('hidden');
-        } else {
-            card.classList.add('hidden');
-        }
-    });
-}
-
-searchBox.addEventListener('input', filterGames);
-categoryFilter.addEventListener('change', filterGames);
-
-// ====== Hero Smooth Scroll ======
-heroBtn.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector('#games').scrollIntoView({ behavior: 'smooth' });
-});
-
-// ====== Dark Mode Toggle ======
-if (localStorage.getItem('darkMode') === 'enabled') {
-    body.classList.add('dark-mode');
-    toggleBtn.textContent = '☀️';
-} else {
-    toggleBtn.textContent = '🌙';
-}
-
-toggleBtn.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    if (body.classList.contains('dark-mode')) {
-        toggleBtn.textContent = '☀️';
-        localStorage.setItem('darkMode', 'enabled');
-    } else {
-        toggleBtn.textContent = '🌙';
-        localStorage.setItem('darkMode', 'disabled');
-    }
-});
-
+/* ==============================
+   Logout
+   ============================== */
 function logout() {
     localStorage.removeItem("token");
     window.location.href = "login.html";
 }
+
+/* ==============================
+   Theme Toggle (Dark Mode)
+   ============================== */
+const themeToggle = document.getElementById("theme-toggle");
+
+if (themeToggle) {
+    // Load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+        themeToggle.textContent = "☀️";
+    }
+
+    themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+            themeToggle.textContent = "☀️";
+        } else {
+            localStorage.setItem("theme", "light");
+            themeToggle.textContent = "🌙";
+        }
+    });
+}
+
+/* ==============================
+   Hamburger Menu (Mobile)
+   ============================== */
+const navbar = document.querySelector(".navbar");
+const hamburgerBtn = document.querySelector(".hamburger-btn");
+
+if (hamburgerBtn && navbar) {
+    hamburgerBtn.addEventListener("click", () => {
+        navbar.classList.toggle("active");
+    });
+}
+
+/* ==============================
+   Search + Category Filter
+   ============================== */
+const searchBox = document.getElementById("searchBox");
+const categoryFilter = document.getElementById("categoryFilter");
+const gameCards = document.querySelectorAll(".game-card");
+
+function filterGames() {
+    const searchText = searchBox.value.toLowerCase();
+    const category = categoryFilter.value;
+
+    gameCards.forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        const cardCategory = card.getAttribute("data-category");
+
+        const matchesSearch = title.includes(searchText);
+        const matchesCategory =
+            category === "all" || category === cardCategory;
+
+        if (matchesSearch && matchesCategory) {
+            card.classList.remove("hidden");
+        } else {
+            card.classList.add("hidden");
+        }
+    });
+}
+
+if (searchBox) searchBox.addEventListener("input", filterGames);
+if (categoryFilter) categoryFilter.addEventListener("change", filterGames);
