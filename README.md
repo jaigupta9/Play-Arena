@@ -88,22 +88,24 @@ A database (**MongoDB**) will be added in a future update.
 
 ## 📁 Project Structure
 
+```
 Play Arena/
-├─ index.html # Home page
-├─ login.html # Login page
-├─ register.html # Registration page
-├─ styles.css # Global styles & dark mode
-├─ script.js # UI logic, auth guard, filters
-├─ images/ # Game thumbnails and assets
-├─ games/ # Individual game pages
-│ ├─ tic-tac-toe.*
-│ ├─ rock-paper-scissors.*
-│ └─ snake.*
+├─ index.html            # Home page
+├─ login.html            # Login page
+├─ register.html         # Registration page
+├─ styles.css            # Global styles & dark mode
+├─ script.js             # UI logic, auth guard, filters
+├─ images/               # Game thumbnails and assets
+├─ games/                # Individual game pages
+│  ├─ tic-tac-toe.*
+│  ├─ rock-paper-scissors.*
+│  └─ snake.*
 └─ backend/
-├─ server.js # Express backend
-├─ package.json
-└─ data/
-└─ users.json # Temporary user storage
+   ├─ server.js          # Express backend
+   ├─ package.json
+   └─ data/
+      └─ users.json      # Temporary user storage
+```
 
 ---
 
