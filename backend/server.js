@@ -44,8 +44,10 @@ app.post("/api/login", async (req, res) => {
     res.json({ msg: "Login successful", token });
 });
 
+// use Render's port if available, else default to 5000
 const PORT = process.env.PORT || 5000;
 
+// starts server
 app.listen(PORT, () => {
     console.log(`Backend running on port ${PORT}`);
 });

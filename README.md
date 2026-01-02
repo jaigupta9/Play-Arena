@@ -1,82 +1,164 @@
-# Play Arena
+# 🎮 Play Arena
 
-Play Arena is a lightweight, responsive mini‑games website featuring a shared UI, dark mode with persistence, and polished pages for Tic Tac Toe, Rock · Paper · Scissors, and Snake. Each game inherits a common navbar, button styles, animations, and accessible keyboard controls.
+Play Arena is a lightweight, responsive mini-games website featuring a shared UI, dark mode with persistence, and a simple authentication backend (login & registration). The platform includes polished pages for games like Tic Tac Toe, Rock · Paper · Scissors, and Snake, all built with vanilla web technologies.
 
-## Features
+---
 
-- Shared UI
-  - Sticky navbar with logo link to Home, navigation links, theme toggle, and mobile hamburger menu.
-  - Dark mode persists across pages via localStorage and updates the toggle icon accordingly.
-  - Consistent cards, buttons, shadows, and hover/active states across all pages.
-- Home page
-  - Hero section, featured game, and a grid of game cards.
-  - Live search and category filter for quick discovery.
-  - Smooth scroll from hero button to games.
-- Game pages
-  - Reuse the shared navbar and footer.
-  - Per‑game hero header and a central “game card” for the board/controls.
-  - “Back to Menu” action and a clickable logo to return to Home.
-- Games included
-  - Tic Tac Toe: animated X/O, win highlighting, scoreboard, and replay modal.
-  - Rock · Paper · Scissors: outcome highlighting (win/lose/draw), keyboard support, and scoring.
-  - Snake: larger 20×20 grid with CSS‑driven sizing, right‑side instructions, chip‑style scoreboard, pause/resume, and an improved game‑over modal with two actions.
+## ✨ Features
 
-## Tech Stack
+### 🎨 Frontend
 
-- HTML5 for structure
-- Modern CSS (flex/grid, tokens/variables, transitions) for styling and themes
-- Vanilla JavaScript for game logic, UI behaviors, and accessibility
-- No framework/runtime required; serves as a static site
+#### Shared UI
+- Sticky navbar with logo, navigation links, theme toggle, logout button, and mobile hamburger menu
+- Dark mode persists across pages using `localStorage`
+- Consistent cards, buttons, shadows, and hover/active states across all pages
 
-## Project Structure
+#### Home Page
+- Hero section, featured game, and grid of game cards
+- Live search and category filter
+- Smooth scroll from hero section to games
 
-.
-├─ index.html # Home (featured game + game cards + search/filter)
-├─ styles.css # Site-wide styles, tokens, components, dark-mode
-├─ images/ # Thumbnails and assets
-└─ games/
-├─ tic-tac-toe.html
-├─ tic-tac-toe.css
-├─ tic-tac-toe.js
-├─ rock-paper-scissors.html
-├─ rock-paper-scissors.css
-├─ rock-paper-scissors.js
-├─ snake.html
-├─ snake.css
-└─ snake.js
+#### Game Pages
+- Reuse the shared navbar and footer
+- Central game cards with controls and instructions
+- “Back to Menu” navigation
 
-## Getting Started
+#### Games Included
+- **Tic Tac Toe**: animated X/O, win highlighting, scoreboard, replay
+- **Rock · Paper · Scissors**: keyboard support, outcome highlighting, scoring
+- **Snake**: 20×20 grid, keyboard controls (Arrow/WASD), pause/resume, game-over modal
 
-- Live Demo: https://play-arena-mu.vercel.app/
+---
 
-Notes:
-- This link opens the deployed Play Arena site directly; no installation or setup is required.
-- The website is responsive and supports dark mode; your theme choice is remembered automatically.
-- Use the top navigation to jump between games, and the logo or “Back to Menu” to return to the home page.
-- Keyboard shortcuts are available on game pages (e.g., Arrow Keys/WASD for Snake, Enter/Space to start/restart where supported).
+## 🔐 Authentication (Backend)
 
-## Key Behaviors and Shortcuts
+Play Arena includes a **Node.js + Express backend** that handles:
 
-- Theme
-  - Toggle with the sun/moon button in the navbar.
-  - Persistence key: `darkMode` with values `enabled` or `disabled`.
-- Navigation
-  - Logo always routes to Home.
-  - On mobile, the hamburger toggles the nav links with `aria-expanded` updates.
-- Tic Tac Toe
-  - Click to place; animated marks and win glow.
-  - Scoreboard tracks X and O.
-- Rock · Paper · Scissors
-  - Pick with mouse or keyboard (Enter/Space on focused choice).
-  - Outcome chips (win/lose/draw) and running score.
-- Snake
-  - Move: Arrow keys or WASD.
-  - Start/Restart: Enter.
-  - Pause/Resume: Space.
-  - Game Over modal: shows Score, buttons for “Play Again” and “Back to Menu”, and the hint “Press Enter or Space to play again”.
-  - Enter or Space restarts immediately after game over.
-  - Modal does not block the sticky navbar; header remains clickable.
+- User registration
+- User login
+- Secure password hashing
+- JWT-based authentication
 
-## Credits
+This backend is deployed separately from the frontend.
 
-Design and development by Jai. Icons/emojis are used for game labels and feedback.
+### Authentication Flow
+1. User registers with username, email, and password
+2. Password is hashed using **bcrypt** before storage
+3. On login, credentials are verified
+4. A **JWT token** is generated and returned
+5. The frontend stores the token in `localStorage`
+6. Protected pages check for token presence in localStorage
+7. Logout removes the token from `localStorage`
+
+---
+
+## 🧠 Important Note on Data Persistence
+
+Currently, user data is stored in a local JSON file: backend/data/users.json
+
+
+- This storage is **temporary**
+- On Render free tier, the backend container sleeps after inactivity
+- When it restarts, the JSON file is reset
+- **User data is lost after inactivity**
+
+This setup is intentional for learning purposes.  
+A database (**MongoDB**) will be added in a future update.
+
+---
+
+## 🧰 Tech Stack
+
+### Frontend
+- HTML5
+- Modern CSS (Flexbox, Grid, transitions)
+- Vanilla JavaScript
+- Deployed on **Vercel**
+
+### Backend
+- Node.js
+- Express.js
+- `bcryptjs` (password hashing)
+- `jsonwebtoken` (JWT authentication)
+- `cors`
+- File system (JSON-based storage)
+- Deployed on **Render**
+
+---
+
+## 📁 Project Structure
+
+Play Arena/
+├─ index.html # Home page
+├─ login.html # Login page
+├─ register.html # Registration page
+├─ styles.css # Global styles & dark mode
+├─ script.js # UI logic, auth guard, filters
+├─ images/ # Game thumbnails and assets
+├─ games/ # Individual game pages
+│ ├─ tic-tac-toe.*
+│ ├─ rock-paper-scissors.*
+│ └─ snake.*
+└─ backend/
+├─ server.js # Express backend
+├─ package.json
+└─ data/
+└─ users.json # Temporary user storage
+
+---
+
+## 🚀 Getting Started
+
+### Live Demo
+
+**Frontend:**  
+https://play-arena-mu.vercel.app/
+
+**Backend (API):**  
+https://play-arena-backend.onrender.com/
+
+---
+
+## ▶️ Run Locally
+
+### Frontend
+Open `index.html` directly or use Live Server.
+
+### Backend
+```bash
+cd backend
+npm install
+node server.js
+```
+
+Backend runs on: http://localhost:5000
+
+## ⌨️ Key Behaviors & Shortcuts
+
+### Theme Toggle
+- Stored in `localStorage`
+- Persists across pages
+
+### Authentication
+- Token stored in `localStorage`
+- Protected pages redirect to login if token is missing
+
+### Snake Controls
+- Move: Arrow keys / WASD
+- Start / Restart: Enter
+- Pause / Resume: Space
+
+---
+
+## 🔮 Planned Improvements
+- MongoDB integration for persistent user storage
+- JWT verification middleware
+- Protected API routes
+- User profiles & leaderboard
+- Better session handling
+
+---
+
+## 👨‍💻 Credits
+Design and development by **Jai**.  
+Built for learning, experimentation, and gradual improvement.
