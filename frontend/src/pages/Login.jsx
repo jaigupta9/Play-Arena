@@ -22,6 +22,7 @@ export default function Login() {
     setSuccess('');
     setIsLoading(true);
     try {
+      console.log("LOGIN URL:", `${import.meta.env.VITE_API_URL}/api/login`);
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, formData);
       if (response.data.token) {
         login(response.data.token);

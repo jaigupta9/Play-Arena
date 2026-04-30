@@ -20,6 +20,7 @@ export default function Register() {
     setSuccess('');
     setIsLoading(true);
     try {
+      console.log("REGISTER URL:", `${import.meta.env.VITE_API_URL}/api/register`);
       await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, formData);
       setSuccess('Registration successful! Please login.');
       setTimeout(() => navigate('/login'), 1500);
