@@ -10,6 +10,8 @@ import Snake from './games/Snake';
 import TicTacToe from './games/TicTacToe';
 
 function App() {
+  console.log('API URL:', import.meta.env.VITE_API_URL);
+
   return (
     <AuthProvider>
       <BrowserRouter>
