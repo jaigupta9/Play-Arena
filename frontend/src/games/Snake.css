@@ -1,0 +1,98 @@
+:root {
+    --brand: #0077ff;
+    --text: #e0e0e0;
+    --muted: #9e9e9e;
+    --card-bg: #1e1e1e;
+    --chip-bg: #2a2a2a;
+    --cell-bg: #151515;
+    --grid-line: rgba(255, 255, 255, 0.08);
+    --snake: #16c37b;
+    --food: #ff5555;
+    --radius-board: 12px;
+}
+
+.snake-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+    margin: 24px auto;
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--grid-line);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    padding: 24px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.snake-card h2 {
+    margin-top: 0;
+    color: #fff;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 10px 0 24px;
+    color: var(--text);
+    width: 100%;
+}
+
+.scoreboard p {
+    background: var(--chip-bg);
+    border: 1px solid var(--grid-line);
+    padding: 10px 18px;
+    border-radius: 10px;
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.scoreboard span {
+    font-weight: 700;
+    color: var(--brand);
+}
+
+.snake-board {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    /* We remove explicit 1fr rows and let the cell's aspect-ratio dictate the row height */
+    gap: 1px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 24px;
+    border-radius: var(--radius-board);
+    background: #2a2a2a; /* Light dark background for visible gap lines */
+    border: 2px solid #2a2a2a;
+    box-shadow: 0 8px 32px rgba(0, 119, 255, 0.15);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.snake-cell {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    background: #111; /* Dark background for empty cells */
+    box-sizing: border-box;
+}
+
+.snake-cell.snake {
+    background: var(--snake); /* Bright solid green */
+    /* No border-radius or gradients so it looks like proper contiguous blocks */
+}
+
+.snake-cell.food {
+    background: var(--food); /* Bright solid red */
+    /* Fully filled square */
+}
+
+.actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    width: 100%;
+}

@@ -1,0 +1,84 @@
+:root {
+    --brand: #0077ff;
+    --text: #e0e0e0;
+    --muted: #9e9e9e;
+    --card-bg: #1e1e1e;
+    --chip-bg: #2a2a2a;
+    --cell-bg: #1a1a1a;
+    --grid-line: rgba(255, 255, 255, 0.08);
+    --accent-win: #16c37b;
+    --accent-lose: #ff5555;
+    --accent-draw: #ffb86c;
+}
+
+.rps-card {
+    max-width: 560px;
+    margin: 24px auto 60px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    padding: 20px 20px 24px;
+    text-align: center;
+}
+
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 6px 0 10px;
+    color: var(--text);
+}
+
+.scoreboard span {
+    font-weight: 700;
+    color: var(--brand);
+}
+
+.status {
+    font-size: 1.2rem;
+    margin: 8px 0 14px;
+    color: var(--text);
+    text-align: center;
+    min-height: 1.5em;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 10px 0 16px;
+}
+
+.choice-btn {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    font-size: 2.4rem;
+    border: 1px solid var(--grid-line);
+    background: var(--cell-bg);
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.25s, background 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.04);
+}
+
+.choice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 119, 255, 0.18);
+}
+
+.choice-btn.win {
+    box-shadow: 0 0 0 2px var(--accent-win), 0 10px 24px rgba(22, 195, 123, 0.25);
+}
+
+.choice-btn.lose {
+    box-shadow: 0 0 0 2px var(--accent-lose), 0 10px 24px rgba(255, 85, 85, 0.25);
+}
+
+.choice-btn.draw {
+    box-shadow: 0 0 0 2px var(--accent-draw), 0 10px 24px rgba(255, 184, 108, 0.25);
+}

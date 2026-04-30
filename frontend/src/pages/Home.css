@@ -1,0 +1,216 @@
+/* Featured Game */
+.featured {
+    max-width: 1100px;
+    margin: 60px auto 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.featured h2 {
+    font-size: 2.2rem;
+    color: var(--accent);
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.featured-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    padding: 40px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 16px 40px rgba(0, 250, 255, 0.2);
+}
+
+.featured-card:active {
+    transform: scale(0.98);
+}
+
+.featured-card-icon {
+    font-size: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 220px;
+    background: var(--bg-elevated);
+    border-radius: 16px;
+    margin-right: 50px;
+}
+
+.featured-info {
+    max-width: 450px;
+    text-align: left;
+}
+
+.featured-info h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 2.2rem;
+}
+
+.featured-info p {
+    color: var(--text-muted);
+    margin: 15px 0 30px;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+/* Games Section */
+.games {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.games h2 {
+    font-size: 2.2rem;
+    color: var(--accent);
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+/* Search Filter */
+.search-filter {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.search-filter input,
+.search-filter select {
+    padding: 12px 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    min-width: 250px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.search-filter input:focus,
+.search-filter select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.1);
+}
+
+/* Game Menu Grid */
+.game-menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 10px 0 50px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+    .game-menu {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .game-menu {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .featured-card {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+    .featured-card-icon {
+        margin-right: 0;
+        margin-bottom: 30px;
+        width: 180px;
+        height: 180px;
+        font-size: 5rem;
+    }
+    .featured-info {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-menu {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Game Card */
+.game-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border);
+    padding: 24px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.game-card:hover {
+    transform: scale(1.04);
+    box-shadow: 0 16px 32px rgba(0, 119, 255, 0.25);
+    z-index: 10;
+}
+
+.game-card:active {
+    transform: scale(0.97);
+}
+
+.game-card-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    width: 100%;
+    background: var(--bg-elevated);
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-card-icon {
+    transform: scale(1.05);
+}
+
+.game-card h3 {
+    color: #fff;
+    font-size: 1.4rem;
+    margin: 0 0 10px;
+    font-weight: 600;
+}
+
+.game-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0 0 24px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.play-btn {
+    width: 100%;
+    margin-top: auto;
+    box-sizing: border-box;
+    padding: 12px;
+}
