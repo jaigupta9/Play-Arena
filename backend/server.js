@@ -19,6 +19,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 
+app.get("/test-route", (req, res) => {
+    res.send("Backend is updated");
+});
+
 const authRoutes = require("./routes/authRoutes");
 app.use("/api", authRoutes);
 

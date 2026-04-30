@@ -4,9 +4,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+console.log("Auth routes loaded");
+
 // REGISTER
 router.post("/register", async (req, res) => {
     try {
+        console.log("Register route hit");
         const { username, email, password } = req.body;
 
         if (!username || !email || !password)
