@@ -1,6 +1,6 @@
 # 🎮 Play Arena
 
-Play Arena is a lightweight, responsive mini-games website featuring a shared UI, dark mode with persistence, and a simple authentication backend (login & registration). The platform includes polished pages for games like Tic Tac Toe, Rock · Paper · Scissors, and Snake, all built with vanilla web technologies.
+Play Arena is a lightweight, responsive mini-games website featuring a shared UI, dark mode with persistence, and a simple authentication backend (login & registration). The platform includes polished pages for games like Tic Tac Toe, Rock · Paper · Scissors, and Snake, all built with React + Vite.
 
 ---
 
@@ -12,6 +12,7 @@ Play Arena is a lightweight, responsive mini-games website featuring a shared UI
 - Sticky navbar with logo, navigation links, theme toggle, logout button, and mobile hamburger menu
 - Dark mode persists across pages using `localStorage`
 - Consistent cards, buttons, shadows, and hover/active states across all pages
+- Built with React functional components and hooks
 
 #### Home Page
 - Hero section, featured game, and grid of game cards
@@ -54,8 +55,7 @@ This backend is deployed separately from the frontend.
 
 ## 🧠 Important Note on Data Persistence
 
-Currently, user data is stored in a local JSON file: backend/data/users.json
-
+Currently, user data is stored in a local JSON file: `backend/data/users.json`
 
 - This storage is **temporary**
 - On Render free tier, the backend container sleeps after inactivity
@@ -70,9 +70,9 @@ A database (**MongoDB**) will be added in a future update.
 ## 🧰 Tech Stack
 
 ### Frontend
-- HTML5
+- React (Vite)
+- React Router DOM
 - Modern CSS (Flexbox, Grid, transitions)
-- Vanilla JavaScript
 - Deployed on **Vercel**
 
 ### Backend
@@ -90,16 +90,16 @@ A database (**MongoDB**) will be added in a future update.
 
 ```
 Play Arena/
-├─ index.html            # Home page
-├─ login.html            # Login page
-├─ register.html         # Registration page
-├─ styles.css            # Global styles & dark mode
-├─ script.js             # UI logic, auth guard, filters
-├─ images/               # Game thumbnails and assets
-├─ games/                # Individual game pages
-│  ├─ tic-tac-toe.*
-│  ├─ rock-paper-scissors.*
-│  └─ snake.*
+├─ frontend/             # React (Vite) application
+│  ├─ src/
+│  │  ├─ components/     # Reusable UI components
+│  │  ├─ context/        # React Context (e.g., AuthContext)
+│  │  ├─ games/          # Individual game components
+│  │  ├─ pages/          # Page components (Home, Login, Register)
+│  │  ├─ App.jsx         # App routing and entry point
+│  │  ├─ main.jsx        # App entry point
+│  │  └─ index.css       # Global styles & dark mode
+│  └─ package.json
 └─ backend/
    ├─ server.js          # Express backend
    ├─ package.json
@@ -114,7 +114,7 @@ Play Arena/
 ### Live Demo
 
 **Frontend:**  
-https://play-arena-mu.vercel.app/
+https://play-arena-seven.vercel.app/
 
 **Backend (API):**  
 https://play-arena-backend.onrender.com/
@@ -124,7 +124,12 @@ https://play-arena-backend.onrender.com/
 ## ▶️ Run Locally
 
 ### Frontend
-Open `index.html` directly or use Live Server.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend runs on: http://localhost:5173
 
 ### Backend
 ```bash
