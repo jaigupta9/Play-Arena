@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './RockPaperScissors.css';
 
 export default function RockPaperScissors() {
+    const navigate = useNavigate();
     const [playerScore, setPlayerScore] = useState(0);
     const [computerScore, setComputerScore] = useState(0);
     const [resultMsg, setResultMsg] = useState("Make your move!");
@@ -32,6 +35,24 @@ export default function RockPaperScissors() {
         if (outcome === "win") {
             setPlayerScore(prev => prev + 1);
             setResultMsg(`You chose ${playerChoice}, Computer chose ${computerChoice}. You Win! 🎉`);
+            
+            // Save win to backend
+            const saveScore = async () => {
+                try {
+                    const token = localStorage.getItem("token");
+                    if (token) {
+                        await axios.post(
+                            `${import.meta.env.VITE_API_URL}/api/score`, 
+                            { game: 'rps', score: 1 },
+                            { headers: { Authorization: `Bearer ${token}` } }
+                        );
+                    }
+                } catch (err) {
+                    console.error("Failed to save score", err);
+                }
+            };
+            saveScore();
+            
         } else if (outcome === "lose") {
             setComputerScore(prev => prev + 1);
             setResultMsg(`You chose ${playerChoice}, Computer chose ${computerChoice}. You Lose 😢`);
@@ -68,6 +89,7 @@ export default function RockPaperScissors() {
             </div>
             <div className="actions">
                 <button className="btn" onClick={resetGame}>Reset Game</button>
+                <button className="btn" onClick={() => navigate('/leaderboard/rps')}>View Leaderboard</button>
             </div>
         </div>
     );

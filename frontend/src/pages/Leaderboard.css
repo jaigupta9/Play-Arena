@@ -1,0 +1,119 @@
+.leaderboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 160px);
+  padding: 2rem;
+}
+
+.leaderboard-card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.leaderboard-card h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: var(--primary);
+  font-size: 2rem;
+}
+
+.leaderboard-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.tab-btn:hover {
+  background-color: var(--border-color);
+}
+
+.tab-btn.active {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.leaderboard-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.leaderboard-table tr {
+  transition: var(--transition);
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.player-name {
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.score-value {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.top-1 {
+  background-color: rgba(255, 215, 0, 0.1);
+}
+
+.top-2 {
+  background-color: rgba(192, 192, 192, 0.1);
+}
+
+.top-3 {
+  background-color: rgba(205, 127, 50, 0.1);
+}
+
+.no-data {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem !important;
+}
+
+.loading-spinner, .error-message {
+  padding: 3rem;
+  color: var(--text-muted);
+}

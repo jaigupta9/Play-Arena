@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Snake.css';
 
 const ROWS = 20;
 const COLS = 20;
 
 export default function Snake() {
+    const navigate = useNavigate();
     const [snake, setSnake] = useState([{ row: 10, col: 10 }]);
     const [food, setFood] = useState({ row: 5, col: 5 });
     const [score, setScore] = useState(0);
@@ -22,6 +25,7 @@ export default function Snake() {
     const foodRef = useRef(food);
     const scoreRef = useRef(score);
     const highScoreRef = useRef(highScore);
+    const hasSubmittedScore = useRef(false);
     
     // Status refs for the keydown listener
     const isRunningRef = useRef(isRunning);
@@ -39,12 +43,32 @@ export default function Snake() {
     }, [food, score, highScore, isRunning, isPaused, isGameOver]);
 
     // gameOver has no dependencies, so it never resets the game loop interval
-    const gameOver = useCallback(() => {
+    const gameOver = useCallback(async () => {
         setIsRunning(false);
         setIsGameOver(true);
         if (scoreRef.current > highScoreRef.current) {
             setHighScore(scoreRef.current);
             localStorage.setItem("snakeHighScore", String(scoreRef.current));
+        }
+
+        if (scoreRef.current > 0 && !hasSubmittedScore.current) {
+            hasSubmittedScore.current = true;
+            try {
+                const token = localStorage.getItem("token");
+                console.log("Sending score to backend...", { game: 'snake', score: scoreRef.current, hasToken: !!token });
+                if (token) {
+                    await axios.post(
+                        `${import.meta.env.VITE_API_URL}/api/score`, 
+                        { game: 'snake', score: scoreRef.current },
+                        { headers: { Authorization: `Bearer ${token}` } }
+                    );
+                    console.log("Score submitted once");
+                } else {
+                    console.log("No token found, not sending score.");
+                }
+            } catch (err) {
+                console.error("Failed to save score", err.response?.data || err.message);
+            }
         }
     }, []);
 
@@ -155,6 +179,7 @@ export default function Snake() {
         setIsGameOver(false);
         setIsPaused(false);
         setIsRunning(true);
+        hasSubmittedScore.current = false;
         
         let r, c;
         do {
@@ -190,6 +215,7 @@ export default function Snake() {
                 {!isRunning && !isGameOver && <button className="btn" onClick={startGame}>Start Game</button>}
                 {isGameOver && <button className="btn" onClick={startGame}>Play Again</button>}
                 {isRunning && <button className="btn" onClick={() => setIsPaused(p => !p)}>{isPaused ? 'Resume' : 'Pause'}</button>}
+                <button className="btn" onClick={() => navigate('/leaderboard/snake')}>View Leaderboard</button>
             </div>
             {isGameOver && <div style={{marginTop: '10px', color: '#ff5555', fontSize: '1.2rem', fontWeight: 'bold'}}>Game Over!</div>}
         </div>

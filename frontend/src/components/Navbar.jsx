@@ -19,9 +19,11 @@ export default function Navbar() {
             <>
               <NavLink to="/login" className={({isActive}) => isActive ? "active" : ""}>Login</NavLink>
               <NavLink to="/register" className={({isActive}) => isActive ? "active" : ""}>Register</NavLink>
+              <NavLink to="/leaderboard/snake" className={({isActive}) => isActive ? "active" : ""}>Leaderboards</NavLink>
             </>
           ) : (
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+              <NavLink to="/leaderboard/snake" className={({isActive}) => isActive ? "active" : ""}>Leaderboards</NavLink>
               <span style={{ color: 'var(--text-muted)', fontWeight: '500' }}>
                 Hi, {user?.username || user?.email?.split('@')[0] || 'Player'}
               </span>

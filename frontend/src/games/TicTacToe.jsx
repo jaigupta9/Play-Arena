@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './TicTacToe.css';
 
 export default function TicTacToe() {
+    const navigate = useNavigate();
     const [gameState, setGameState] = useState(Array(9).fill(""));
     const [scores, setScores] = useState({ X: 0, O: 0 });
 
@@ -39,8 +42,26 @@ export default function TicTacToe() {
 
     // Safely update scores only when a new winner is declared
     useEffect(() => {
+        const saveScore = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                if (token) {
+                    await axios.post(
+                        `${import.meta.env.VITE_API_URL}/api/score`, 
+                        { game: 'tic-tac-toe', score: 1 },
+                        { headers: { Authorization: `Bearer ${token}` } }
+                    );
+                }
+            } catch (err) {
+                console.error("Failed to save score", err);
+            }
+        };
+
         if (winner) {
             setScores(prev => ({ ...prev, [winner]: prev[winner] + 1 }));
+            if (winner === "X") { // Assuming the logged in user is Player X
+                saveScore();
+            }
         }
     }, [winner]);
 
@@ -83,6 +104,7 @@ export default function TicTacToe() {
             </div>
             <div className="actions">
                 <button className="btn" onClick={resetGame}>Reset Game</button>
+                <button className="btn" onClick={() => navigate('/leaderboard/tic-tac-toe')}>View Leaderboard</button>
             </div>
         </div>
     );

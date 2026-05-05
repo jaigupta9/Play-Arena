@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import RockPaperScissors from './games/RockPaperScissors';
 import Snake from './games/Snake';
 import TicTacToe from './games/TicTacToe';
+import Leaderboard from './pages/Leaderboard';
 
 function App() {
   console.log('API URL:', import.meta.env.VITE_API_URL);
@@ -23,6 +24,7 @@ function App() {
           <Route path="/games/rps" element={<ProtectedRoute><RockPaperScissors /></ProtectedRoute>} />
           <Route path="/games/snake" element={<ProtectedRoute><Snake /></ProtectedRoute>} />
           <Route path="/games/tic-tac-toe" element={<ProtectedRoute><TicTacToe /></ProtectedRoute>} />
+          <Route path="/leaderboard/:game" element={<Leaderboard />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
