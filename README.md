@@ -29,41 +29,34 @@ Play Arena is a lightweight, responsive mini-games website featuring a shared UI
 - **Rock · Paper · Scissors**: keyboard support, outcome highlighting, scoring
 - **Snake**: 20×20 grid, keyboard controls (Arrow/WASD), pause/resume, game-over modal
 
+#### Global Leaderboard
+- Displays highest scores for Snake and cumulative wins for Tic-Tac-Toe & Rock-Paper-Scissors
+- Public-facing leaderboard UI accessible from the navigation menu
+- Real-time updates as scores are submitted to the backend
+
 ---
 
 ## 🔐 Authentication (Backend)
 
-Play Arena includes a **Node.js + Express backend** that handles:
+Play Arena includes a **MERN stack (MongoDB, Express, React, Node.js) backend** that handles:
 
 - User registration
 - User login
 - Secure password hashing
 - JWT-based authentication
+- Secure score submissions and leaderboard retrieval
 
 This backend is deployed separately from the frontend.
 
 ### Authentication Flow
 1. User registers with username, email, and password
 2. Password is hashed using **bcrypt** before storage
-3. On login, credentials are verified
-4. A **JWT token** is generated and returned
-5. The frontend stores the token in `localStorage`
-6. Protected pages check for token presence in localStorage
-7. Logout removes the token from `localStorage`
-
----
-
-## 🧠 Important Note on Data Persistence
-
-Currently, user data is stored in a local JSON file: `backend/data/users.json`
-
-- This storage is **temporary**
-- On Render free tier, the backend container sleeps after inactivity
-- When it restarts, the JSON file is reset
-- **User data is lost after inactivity**
-
-This setup is intentional for learning purposes.  
-A database (**MongoDB**) will be added in a future update.
+3. Data is stored securely in **MongoDB**
+4. On login, credentials are verified
+5. A **JWT token** is generated and returned
+6. The frontend stores the token in `localStorage`
+7. Protected pages check for token presence in localStorage
+8. Logout removes the token from `localStorage`
 
 ---
 
@@ -78,10 +71,10 @@ A database (**MongoDB**) will be added in a future update.
 ### Backend
 - Node.js
 - Express.js
+- **MongoDB / Mongoose** (database)
 - `bcryptjs` (password hashing)
 - `jsonwebtoken` (JWT authentication)
 - `cors`
-- File system (JSON-based storage)
 - Deployed on **Render**
 
 ---
@@ -102,9 +95,9 @@ Play Arena/
 │  └─ package.json
 └─ backend/
    ├─ server.js          # Express backend
-   ├─ package.json
-   └─ data/
-      └─ users.json      # Temporary user storage
+   ├─ models/            # Mongoose schemas (User, Score, etc.)
+   ├─ routes/            # API routes (Auth, Scores, etc.)
+   └─ package.json
 ```
 
 ---
@@ -132,6 +125,14 @@ npm run dev
 Frontend runs on: http://localhost:5173
 
 ### Backend
+
+Requires a `.env` file in the `backend` directory:
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
 ```bash
 cd backend
 npm install
@@ -158,11 +159,9 @@ Backend runs on: http://localhost:5000
 ---
 
 ## 🔮 Planned Improvements
-- MongoDB integration for persistent user storage
-- JWT verification middleware
-- Protected API routes
-- User profiles & leaderboard
 - Better session handling
+- Socket.io for real-time multiplayer
+- Additional mini-games
 
 ---
 
